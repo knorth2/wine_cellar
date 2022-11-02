@@ -35,3 +35,42 @@ def create_wine():
         message= "Successfully created wine",
         status= 201 
         ), 201
+
+
+# SHOW ROUTE
+@wine.route('/<id>', methods=['GET'])
+def get_one_wine(id):
+    wine = models.Wine.get_by_id(id)
+    print(wine)
+    return jsonify(
+        data = model_to_dict(wine),
+        message = 'Success!!! 🍷',
+        status = 200
+    ), 200
+
+
+# UPDATE ROUTE
+# PUT api/v1/wine/<wine_id>
+@wine.route('/<id>', methods=["PUT"])
+def update_wine(id):
+    payload = request.get_json()
+    query = models.Wine.update(**payload).where(models.Wine.id == id)
+    query.execute()
+    return jsonify(
+        data = model_to_dict(models.Wine.get_by_id(id)),
+        status=200,
+        message='wine updated successfully'
+    ), 200
+
+
+# DELETE ROUTE
+# DELETE api/v1/wine/<wine_id>
+@wine.route('/<id>', methods=['DELETE'])
+def delete_wine(id):
+    query = models.Wine.delete().where(models.Wine.id == id)
+    query.execute()
+    return jsonify(
+        data= model_to_dict(models.Wine.get_by_id(id)),
+        message='wine successfully deleted',
+        status=200
+    ), 200
