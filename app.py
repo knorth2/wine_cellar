@@ -17,7 +17,7 @@ app.register_blueprint(wine, url_prefix='/api/v1/wine')
 
 @app.route('/')
 def index():
-    return 'hi'
+    return 'hello'
 
     
 
