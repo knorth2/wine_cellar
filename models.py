@@ -14,13 +14,13 @@ class User(UserMixin, Model):
 
 class Wine(Model):
     name = CharField()
-    img = CharField()
     vintage = IntegerField()
     region = CharField()
     rating = CharField()
     price = IntegerField()
     quantity = IntegerField()
     notes = CharField()
+    #user = ForeignKeyField(User, backref='apartments')
     created_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
