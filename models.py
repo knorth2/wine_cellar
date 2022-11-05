@@ -1,16 +1,25 @@
 from peewee import *
 import datetime
+from flask_login import UserMixin
 
 DATABASE = SqliteDatabase('wine.sqlite')
+
+class User(UserMixin, Model):
+    username = CharField(unique=True)
+    email = CharField(unique=True)
+    password = CharField()
+
+    class Meta:
+        database = DATABASE
 
 class Wine(Model):
     name = CharField()
     img = CharField()
-    vintage = CharField()
+    vintage = IntegerField()
     region = CharField()
     rating = CharField()
-    price = CharField()
-    quantity = CharField()
+    price = IntegerField()
+    quantity = IntegerField()
     notes = CharField()
     created_at = DateTimeField(default=datetime.datetime.now)
 
@@ -20,6 +29,6 @@ class Wine(Model):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([Wine], safe=True)
+    DATABASE.create_tables([User, Wine], safe=True)
     print("TABLES Created")
     DATABASE.close()

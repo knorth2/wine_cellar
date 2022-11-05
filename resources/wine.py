@@ -4,6 +4,8 @@ import models
 from flask import Blueprint, request, jsonify
 
 from playhouse.shortcuts import model_to_dict
+from flask_login import login_required
+from flask_login import current_user
 
 wine = Blueprint('wine', 'wine')
 
@@ -70,7 +72,15 @@ def delete_wine(id):
     query = models.Wine.delete().where(models.Wine.id == id)
     query.execute()
     return jsonify(
-        data= model_to_dict(models.Wine.get_by_id(id)),
+        data ='resource successfully deleted',
         message='wine successfully deleted',
         status=200
     ), 200
+
+
+@wine.route('/', methods=["GET"])
+def get_all_wine():
+    if not current_user:
+        return jsonify(data={}, status={"code": 403, "message": "Not authorized"});
+    wine = [model_to_dict(wine) for wine in models.Wine.select()]
+    return jsonify(data=wine, status={"code": 200, "message": "Success"})
