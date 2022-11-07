@@ -11,6 +11,7 @@ wine = Blueprint('wine', 'wine')
 
 #index route
 @wine.route('/', methods=["GET"])
+# @login_required
 def wine_index():
     result = models.Wine.select()
     print('result of wine select')
@@ -29,7 +30,7 @@ def wine_index():
 def create_wine():
     payload = request.get_json()
     print(payload)
-    new_wine = models.Wine.create(name=payload['name'], img=payload['img'], vintage=payload['vintage'], region=payload['region'], rating=payload['rating'], price=payload['price'], quantity=payload['quantity'], notes=payload['notes'])
+    new_wine = models.Wine.create(name=payload['name'], vintage=payload['vintage'], region=payload['region'], rating=payload['rating'], price=payload['price'], quantity=payload['quantity'], notes=payload['notes'])
     print(new_wine)
     wine_dict = model_to_dict(new_wine)
     return jsonify(

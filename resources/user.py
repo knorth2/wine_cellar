@@ -24,13 +24,13 @@ def register():
     user_dict = model_to_dict(user)
     del user_dict['password']
 
-    return jsonify(data=user_dict, status={'code': 201, 'message': 'Success'}), 201
+    return jsonify(data=user_dict, status={'code': 201, 'message': 'Success user registered'}), 201
 
 @user.route('/login', methods=['POST'])
 def login():
   payload = request.get_json()
   try:
-    user = models.User.get(models.User.email == payload['email'])
+    user = models.User.get(models.User.username == payload['username'])
     user_dict = model_to_dict(user)
     if(check_password_hash(user_dict['password'], payload['password'])):
       del user_dict['password']
