@@ -17,11 +17,13 @@ def wine_index():
     print('result of wine select')
     print(result)
 
-    wine_dicts = [model_to_dict(wine) for wine in result]
+    current_user_wine_dicts = [model_to_dict(wine) for wine in current_user.wine]
+    for wine_dict in current_user_wine_dicts:
+        wine_dict['user'].pop('password')
 
     return jsonify({
-        'data': wine_dicts,
-        'message': f"Successfully found {len(wine_dicts)} wine",
+        'data': current_user_wine_dicts,
+        'message': f"Successfully found {len(current_user_wine_dicts)} wine",
         'status': 200
     }), 200
 
@@ -30,9 +32,10 @@ def wine_index():
 def create_wine():
     payload = request.get_json()
     print(payload)
-    new_wine = models.Wine.create(name=payload['name'], vintage=payload['vintage'], region=payload['region'], rating=payload['rating'], price=payload['price'], quantity=payload['quantity'], notes=payload['notes'])
+    new_wine = models.Wine.create(name=payload['name'], user=current_user.id, vintage=payload['vintage'], region=payload['region'], rating=payload['rating'], price=payload['price'], quantity=payload['quantity'], notes=payload['notes'])
     print(new_wine)
     wine_dict = model_to_dict(new_wine)
+    wine_dict['user'].pop('password')
     return jsonify(
         data=wine_dict, 
         message= "Successfully created wine",

@@ -1,5 +1,8 @@
 from flask import Flask, jsonify
 from flask_login import LoginManager
+import os
+from dotenv import load_dotenv
+load_dotenv() # takes the environment variables from .env
 
 from resources.wine import wine
 from resources.user import user
@@ -8,12 +11,12 @@ import models
 
 from flask_cors import CORS
 DEBUG = True
-PORT=8000
+PORT=os.environ.get("PORT")
 login_manager = LoginManager()
 
 app = Flask(__name__)
 
-app.secret_key = "ASDFASDFASDFASDF"
+app.secret_key = os.environ.get("SECRET_KEY")
 login_manager.init_app(app)
 
 @login_manager.user_loader
