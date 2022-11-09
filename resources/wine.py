@@ -10,8 +10,8 @@ from flask_login import current_user
 wine = Blueprint('wine', 'wine')
 
 #index route
-@wine.route('/', methods=["GET"])
 # @login_required
+@wine.route('/', methods=["GET"])
 def wine_index():
     result = models.Wine.select()
     print('result of wine select')
@@ -76,15 +76,15 @@ def delete_wine(id):
     query = models.Wine.delete().where(models.Wine.id == id)
     query.execute()
     return jsonify(
-        data ='resource successfully deleted',
+         data ='resource successfully deleted',
         message='wine successfully deleted',
         status=200
     ), 200
 
 
-@wine.route('/', methods=["GET"])
-def get_all_wine():
-    if not current_user:
-        return jsonify(data={}, status={"code": 403, "message": "Not authorized"});
-    wine = [model_to_dict(wine) for wine in models.Wine.select()]
-    return jsonify(data=wine, status={"code": 200, "message": "Success"})
+# @wine.route('/', methods=["GET"])
+# def get_all_wine():
+#     if not current_user:
+#         return jsonify(data={}, status={"code": 403, "message": "Not authorized"});
+#     wine = [model_to_dict(wine) for wine in models.Wine.select()]
+#     return jsonify(data=wine, status={"code": 200, "message": "Success"})
