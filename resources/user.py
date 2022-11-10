@@ -30,6 +30,7 @@ def register():
 def login():
   payload = request.get_json()
   try:
+    print('inside login')
     user = models.User.get(models.User.username == payload['username'])
     user_dict = model_to_dict(user)
     if(check_password_hash(user_dict['password'], payload['password'])):
