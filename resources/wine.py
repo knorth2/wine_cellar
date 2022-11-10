@@ -10,7 +10,7 @@ from flask_login import current_user
 wine = Blueprint('wine', 'wine')
 
 #index route
-# @login_required
+@login_required
 @wine.route('/', methods=["GET"])
 def wine_index():
     result = models.Wine.select()
