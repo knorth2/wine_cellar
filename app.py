@@ -33,9 +33,6 @@ CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
 app.register_blueprint(wine, url_prefix='/api/v1/wine')
 app.register_blueprint(user, url_prefix='/api/v1/user')
 
-# we don't want to hog up the SQL connection pool
-# so we should connect to the DB before every request
-# and close the db connection after every request
 
 @app.before_request # use this decorator to cause a function to run before reqs
 def before_request():
@@ -59,6 +56,7 @@ def index():
 
 # ADD THESE THREE LINES -- because we need to initialize the
 # tables in production too!
+print(os.environ, 'os.environ')
 if os.environ.get('FLASK_ENV') != 'development':
   print('\non heroku!')
   models.initialize()
