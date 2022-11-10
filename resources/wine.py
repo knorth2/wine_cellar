@@ -16,8 +16,9 @@ def wine_index():
     result = models.Wine.select()
     print('result of wine select')
     print(result)
-
+    print([model_to_dict(wine) for wine in current_user.wine], 'current_user')
     current_user_wine_dicts = [model_to_dict(wine) for wine in current_user.wine]
+    
     for wine_dict in current_user_wine_dicts:
         wine_dict['user'].pop('password')
 
