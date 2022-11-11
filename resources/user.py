@@ -43,14 +43,14 @@ def login():
   except models.DoesNotExist:
     return jsonify(data={}, status={'code': 401, 'message': 'Username or Password does not match'}), 401
 
-# @user.route('/logged_in_user', methods=['GET'])
-# def get_logged_in_user():
-#     print(current_user)
-#     print(type(current_user)) 
-#     print(f"{current_user.username} is current_user.username in GET logged_in_user")
-#     user_dict = model_to_dict(current_user)
-#     user_dict.pop('password')
-#     return jsonify(data=user_dict), 200
+@user.route('/logged_in_user', methods=['GET'])
+def get_logged_in_user():
+    print(current_user)
+    print(type(current_user)) 
+    print(f"{current_user.username} is current_user.username in GET logged_in_user")
+    user_dict = model_to_dict(current_user)
+    user_dict.pop('password')
+    return jsonify(data=user_dict), 200
 
 @user.route('/logout', methods=['GET'])
 def logout():

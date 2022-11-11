@@ -15,8 +15,8 @@ wine = Blueprint('wine', 'wine')
 def wine_index():
     result = models.Wine.select()
     print('result of wine select')
-    print(result, 'result?????')
-    # print(current_user.__data__, 'current_user.wine')
+    print(result)
+    # print(current_user.wine, 'current_user.wine')
     print(model_to_dict(wine))
     current_user_wine_dicts = [model_to_dict(wine) for wine in current_user.wine]
     
