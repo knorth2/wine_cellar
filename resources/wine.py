@@ -13,11 +13,11 @@ wine = Blueprint('wine', 'wine')
 @wine.route('/', methods=["GET"])
 # @login_required
 def wine_index():
-    result = models.Wine.select()
-    print('result of wine select')
-    print(result)
+    # result = models.Wine.select()
+    # print('result of wine select')
+    # print(result)
     # print(current_user.wine, 'current_user.wine')
-    print(model_to_dict(wine))
+    # print(model_to_dict(wine))
     current_user_wine_dicts = [model_to_dict(wine) for wine in current_user.wine]
     
     for wine_dict in current_user_wine_dicts:
