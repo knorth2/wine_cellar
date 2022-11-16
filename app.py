@@ -27,7 +27,7 @@ def load_user(userid):
         return None
 
 
-# CORS(wine, origins=['https://wine-react-application.herokuapp.com','http://localhost:3000'], supports_credentials=True)
+CORS(wine, origins=['https://wine-react-application.herokuapp.com','http://localhost:3000'], supports_credentials=True)
 CORS(user, origins=['https://wine-react-application.herokuapp.com','http://localhost:3000'], supports_credentials=True)
 
 app.register_blueprint(wine, url_prefix='/api/v1/wine')
