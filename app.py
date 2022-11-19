@@ -18,11 +18,11 @@ app = Flask(__name__)
 
 app.secret_key = os.environ.get("SECRET_KEY")
 
-app.config.update(
-    SESSION_COOKIE_SECURE=True,
-    SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE='None',
-)
+# app.config.update(
+#     SESSION_COOKIE_SECURE=True,
+#     SESSION_COOKIE_HTTPONLY=True,
+#     SESSION_COOKIE_SAMESITE='None',
+# )
 
 login_manager = LoginManager()
 
