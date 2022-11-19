@@ -12,18 +12,23 @@ import models
 from flask_cors import CORS
 DEBUG = True
 PORT=os.environ.get("PORT")
-login_manager = LoginManager()
+
 
 app = Flask(__name__)
 
 app.secret_key = os.environ.get("SECRET_KEY")
-login_manager.init_app(app)
 
 app.config.update(
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='None',
 )
+
+login_manager = LoginManager()
+
+login_manager.init_app(app)
+
+
 
 @login_manager.user_loader
 def load_user(userid):
